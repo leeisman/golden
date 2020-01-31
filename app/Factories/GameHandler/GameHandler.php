@@ -2,6 +2,7 @@
 
 namespace App\Factories\GameHandler;
 
+use App\Exceptions\ChannelCDException;
 use App\Exceptions\FetchFailureException;
 use App\Factories\LotteryChannel\LotteryChannelFactory;
 use App\Services\Lottery;
@@ -25,7 +26,11 @@ abstract class GameHandler implements GameHandlerInterface
     public function getMainNumber()
     {
         $mainChannel = LotteryChannelFactory::createChannel($this->mainChannel);
-        return $mainChannel->fetchWinningNumber($this->lottery);
+        try {
+            return $mainChannel->fetchWinningNumber($this->lottery);
+        } catch (ChannelCDException $exception) {
+            //記錄起來
+        }
     }
 
     public function loopMatchNumber($mainNumber)
@@ -36,8 +41,12 @@ abstract class GameHandler implements GameHandlerInterface
                 continue;
             }
             $otherChannel = LotteryChannelFactory::createChannel($channelKey);
-            $number = $otherChannel->fetchWinningNumber($this->lottery);
-            if ($mainNumber === $number) {
+            try {
+                $number = $otherChannel->fetchWinningNumber($this->lottery);
+            } catch (ChannelCDException $exception) {
+                //記錄起來
+            }
+            if ($mainNumber !== null && isset($number) && $mainNumber === $number) {
                 return $mainNumber;
             }
         }
