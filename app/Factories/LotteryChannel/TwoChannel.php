@@ -11,9 +11,9 @@ class TwoChannel extends LotteryChannel
     {
         $channelConfig = config('lotteryChannel.' . $this->channelId);
         $url = $channelConfig['url'];
-        $gameKey = $channelConfig['gameKey'][$lottery->gameId];
+        $code = $channelConfig['gameKey'][$lottery->gameId];
         $issue = $lottery->issue;
-        $url = $url . "?gamekey=$gameKey&issue=$issue";
+        $url = $url . "?code=$code";
         $output = $this->getByCURL($url);
 
         if (!isset($output->data)) {
