@@ -89,10 +89,10 @@ class FakeLottery extends Controller
 
     public function three()
     {
-        if(\request('code') == 'cqssc'){
+        if(\request('code') == 'three_code_1'){
             return response()->json([
                 "rows" => "3",
-                "code" => "cqssc",
+                "code" => "three_code_1",
                 "data" => [
                     [
                         "expect"   => "20190902003",
@@ -113,10 +113,10 @@ class FakeLottery extends Controller
             ]);
         }
 
-        if(\request('code') == 'bj11x5'){
+        if(\request('code') == 'three_code_2'){
             return response()->json([
                 "rows" => "3",
-                "code" => "bj11x5",
+                "code" => "three_code_2",
                 "data" => [
                     [
                         "expect"   => "20190902003",

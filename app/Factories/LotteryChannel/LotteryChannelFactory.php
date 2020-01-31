@@ -13,6 +13,8 @@ class LotteryChannelFactory
                 return new OneChannel($channelId);
             case "two":
                 return new TwoChannel($channelId);
+            case "three":
+                return new ThreeChannel($channelId);
             default:
                 throw new FetchFailureException("channel id incorrect");
         }

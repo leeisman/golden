@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('/one', "Api\FakeLottery@one");
 Route::get('/two', "Api\FakeLottery@two");
+Route::get('/three', "Api\FakeLottery@three");
